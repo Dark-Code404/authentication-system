@@ -1,0 +1,9 @@
+name: auths
+services:
+  app:
+    image: my-auths-image
+    container_name: my-auths-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
