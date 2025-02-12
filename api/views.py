@@ -5,11 +5,11 @@ from .serializers import TodoSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view 
+ 
  
 
+ 
 @api_view(['GET','POST'])
 def all_todo_data(request):
     if request.method == "GET":
@@ -26,13 +26,16 @@ def all_todo_data(request):
          
     
     if request.method=="POST":
-        if 'user' not in request.data:
-            return Response({"error": "User ID is required"}, status=400)
-       
-        serializer=TodoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+       if request.user.is_authenticated:
+        
 
+            post_data=request.data
+            post_data['user']=request.user.id
+            serializer=TodoSerializer(data=post_data)
+            if serializer.is_valid():
+                 
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors)
+       return Response({"error": "User is not authenticated"}, status=401)
      
