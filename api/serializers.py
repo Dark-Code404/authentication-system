@@ -3,7 +3,7 @@ from auths.models import Todo,CusUser
  
 
 class TodoSerializer(serializers.ModelSerializer):
-    
+  
 
     class Meta:
         model=Todo
