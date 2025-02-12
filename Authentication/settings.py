@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'auths',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
+    'api',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ 
 
 ROOT_URLCONF = 'Authentication.urls'
 

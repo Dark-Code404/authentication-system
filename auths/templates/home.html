@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+{% for todo in todos  %}
+<article class="media content-section">
+    {% if todo.is_complete %}
+            <strike>
+    <div class="media-body">
+        <div class="article-metadata">
+            
+            <h1 class="mr-2">{{ todo.user }}</h1>
+            <small class="text-muted">{{ todo.date_posted |timesince}} ago</small>
+            {% if request.user == todo.user %}
+             <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url "update_todo" todo.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url "delete_todo" todo.id %}">Delete</a> 
+            {% endif %}
+        </div>
+        <h2 class="article-title" >Task : {{ todo.name }}</h2>
+        <p class="article-content">Task Description : {{ todo.description }}</p>
+        <p class="article-content">Complete By : {{ todo.complete_date }}</p>
+    </div>
+</strike>
+{% else %}
+<div class="media-body">
+    <div class="article-metadata">
+        
+        <h1 class="mr-2">{{ todo.user }}</h1>
+        <small class="text-muted">{{ todo.date_posted |timesince}} ago</small>
+        {% if request.user == todo.user %}
+         <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url "update_todo" todo.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url "delete_todo" todo.id %}">Delete</a> 
+        {% endif %}
+    </div>
+    <h2 class="article-title" >Task : {{ todo.name }}</h2>
+    <p class="article-content">Task Description : {{ todo.description }}</p>
+    <p class="article-content">Complete By : {{ todo.complete_date }}</p>
+</div>
+{% endif %}
+</article>
+{% endfor %}
+{% endblock content %}

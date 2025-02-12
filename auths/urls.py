@@ -24,6 +24,9 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('register/',views.register,name='register'),
     path('login/',views.user_login,name='login'),
+    path('create_todo/',views.create_todo,name='create_todo'),
+    path('update_todo/<int:pk>/',views.update_todo,name='update_todo'),
+    path('delete_todo/<int:pk>/',views.delete_todo,name='delete_todo'),
     path('logout/',auth_views.LogoutView.as_view(template_name='auth/logout.html'),name="logout"),
 
 ]

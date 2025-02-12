@@ -19,3 +19,44 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))  
         
 
+class TodoForm(forms.ModelForm):
+    class Meta:
+        model=Todo
+        fields=['name','description','complete_date']
+
+
+    def save(self,commit=True,user=None):
+         
+           instance = super().save(commit=False)
+           if user is not None:
+            instance.user=user
+            
+            if commit:
+                instance.save()
+
+            return instance
+           
+
+
+class Update_TodoForm(forms.ModelForm):
+    class Meta:
+        model=Todo
+        fields=['name','description','complete_date','is_complete']
+
+
+    def save(self,commit=True,user=None):
+         
+           instance = super().save(commit=False)
+           if user is not None:
+            instance.user=user
+
+            if self.cleaned_data.get('is_complete'):
+                instance.is_complete=True
+            
+            if commit:
+                instance.save()
+
+            return instance
+           
+
+           

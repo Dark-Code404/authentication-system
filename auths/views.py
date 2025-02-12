@@ -1,18 +1,24 @@
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.forms import UserCreationForm
-from .forms import UserRegisterForm,UserLoginForm
+from .forms import UserRegisterForm,UserLoginForm,TodoForm,Update_TodoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate
-from .models import CusUser
+from .models import CusUser,Todo
  
 
  
 @login_required()
 def home(request):
+    todos=Todo.objects.all()
+    context={'todos':todos}
+    
+
+
 
     
-    return render(request,"auth/home.html")
+    return render(request,"home.html",context)
 
 
 def register(request):
@@ -66,3 +72,62 @@ def user_login(request):
         form = UserLoginForm()
     return render(request, 'auth/login.html', {'form': form})
 
+
+
+
+
+def create_todo(request):
+    if request.method=="POST":
+
+        form=TodoForm(request.POST)
+
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect("home")
+            
+            
+             
+
+    else:
+         
+        form=TodoForm()
+    return render(request,"Todo/create_todo.html",{'form':form})
+
+
+def update_todo(request,pk):
+    task=get_object_or_404(Todo,id=pk)
+    if request.method=="POST":
+        form=Update_TodoForm(request.POST,instance=task)
+        if request.user==task.user:
+
+            if form.is_valid():
+                form.save(user=request.user)
+                return redirect("home")
+            
+        else:
+            messages.error(request,"You are not authorized user")   
+             
+
+    else:
+         
+            form=Update_TodoForm(instance=task)
+    return render(request,"Todo/update_todo.html",{'form':form})
+
+
+
+def delete_todo(request,pk):
+    
+    task=get_object_or_404(Todo,id=pk)
+
+    if request.method=='POST':
+        if request.user==task.user:
+
+
+            task.delete()
+            return redirect('home')
+        
+        else:
+            messages.error(request,"You are not authorized user")
+
+    
+    return render(request,"Todo/delete_todo.html",{'task':task})
