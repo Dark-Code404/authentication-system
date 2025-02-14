@@ -18,6 +18,7 @@ class Todo(models.Model):
     name=models.CharField(max_length=100)
     description=models.TextField()
     date_posted=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
     complete_date=models.DateField(blank=True,null=True)
     is_complete=models.BooleanField(default=False)
 

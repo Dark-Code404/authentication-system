@@ -21,6 +21,9 @@ from . import views
 
 urlpatterns = [ 
     path('all_todo/',views.all_todo_data,name='all_todo_datas'),
+    
+    path('all_todo/<int:pk>/',views.all_todo_data,name='all_todo_datas'),
+
      
   
 ]

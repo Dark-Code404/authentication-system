@@ -8,11 +8,14 @@ from django.contrib.auth import login,authenticate
 from .models import CusUser,Todo
  
 
+from django.contrib.auth  import get_user_model
  
 @login_required()
 def home(request):
     todos=Todo.objects.all()
     context={'todos':todos}
+
+   
     
 
 
