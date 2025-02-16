@@ -4,7 +4,6 @@
  
 # from auths.models import CusUser
 # from .views import user_login
-# from parameterized import parameterized
 
 
 # class TestLogin(TestCase):
@@ -67,6 +66,7 @@ from auths.models import CusUser
 from django.contrib.auth  import get_user_model
 from django.contrib.auth.models  import User
 from django.urls import reverse
+from parameterized import parameterized
 
 User=get_user_model()
 
@@ -85,7 +85,7 @@ def test_user_role(create_user):
 
 
 @pytest.mark.django_db
-def test_user_login(client,create_user):
+def test_user_login_code(client,create_user):
       
 
      res=client.post(reverse('login'),{"username":'yunish1',"password":"aaa123aaa"})
@@ -107,6 +107,44 @@ def test_user_register(client,create_user):
       
 
 @pytest.mark.django_db
-def test_user_register(client,create_user):
+def test_user_login_response(client,create_user):
      res=client.post(reverse('login'),{"username":'yunish2',"password":"aaa123aaa"})
      assert 'is not a Admin user' in str(res.content)
+
+
+
+@pytest.mark.django_db    
+@pytest.mark.parametrize('username,password,result',[
+        ("yunish1", "aaa123aaa",302),
+         
+        
+    ])
+def test_parameter_login( client,create_user,username,password,result):
+
+        res=client.post(reverse("login"),{'username':username,'password':password})
+        assert res.status_code==result
+
+
+
+
+@pytest.mark.django_db    
+@pytest.mark.parametrize('username,password1,password2,role,result,msg',[
+        ("yunish3", "aaa123aaa","aaa123aaa",'role1',302,None),
+        ("yunish4", "aaa123aaa","aaa123aaa",'role1',302,None),
+        ("yunish1", "aaa123aaa","aaa123aaa",'role1',200,'A user with that username already exists')
+         
+        
+    ])
+def test_parameter_register( client,create_user,username,password1,password2,role,result,msg):
+
+        res=client.post(reverse("register"),{'username':username,'password1':password1,'password2':password2,"role":role})
+
+
+        if result:
+          assert res.status_code == result
+              
+        if  msg:
+               
+               
+
+               assert msg in res.content.decode()  
