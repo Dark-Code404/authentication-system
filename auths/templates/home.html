@@ -27,11 +27,12 @@
     <div class="article-metadata">
         
         <h1 class="mr-2">{{ todo.user }}</h1>
-        <small class="text-muted">{{ todo.date_posted |timesince}} ago</small>
+        <small class="text-muted">posted : {{ todo.date_posted |timesince}} ago</small>&nbsp;&nbsp; |&nbsp; 
         {% if request.user == todo.user %}
-         <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url "update_todo" todo.id %}">Update</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url "delete_todo" todo.id %}">Delete</a> 
+        <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url "update_todo" todo.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url "delete_todo" todo.id %}">Delete</a>&nbsp;&nbsp;|&nbsp;
         {% endif %}
+        <small class="text-muted">updated : {{ todo.updated_at |timesince}} ago</small>
     </div>
     <h2 class="article-title" >Task : {{ todo.name }}</h2>
     <p class="article-content">Task Description : {{ todo.description }}</p>

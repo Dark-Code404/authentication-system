@@ -8,11 +8,14 @@ from django.contrib.auth import login,authenticate
 from .models import CusUser,Todo
  
 
+from django.contrib.auth  import get_user_model
  
 @login_required()
 def home(request):
     todos=Todo.objects.all()
     context={'todos':todos}
+
+   
     
 
 
@@ -29,10 +32,11 @@ def register(request):
         if form.is_valid():
             username=form.cleaned_data.get("username")
             if CusUser.objects.filter(username=username).exists():
-                messages.info("user already exist")
+                messages.info(request,"user already exist")
+                return render(request, "auth/register.html", {"form": form})
             
             form.save()
-            messages.success(request,f"account created for {username}.")
+            messages.success(request,"account created")
             return redirect('login')
 
     else:
