@@ -1,9 +1,12 @@
-name: auths
+version: '3.8'
+
 services:
-  app:
-    image: my-auths-image
-    container_name: my-auths-container
-    ports:
-      - "8000:8000"
+  web:
+    build: .
+    command: poetry run python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
