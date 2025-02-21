@@ -12,10 +12,10 @@ jobs:
     runs_on: ubuntu-latest
     steps:
       - name: Checkout code
-        user: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Setup Python
-        user: actions/setup-python@4
+        uses: actions/setup-python@4
         with: 
           python-version: '3.12'
 
@@ -26,8 +26,8 @@ jobs:
           poetry install --no-root
       
       - name: Run tests
-        run: |
-          poetry run pytest
+        run: poetry run pytest
+          
 
           poetry run flake8
 
