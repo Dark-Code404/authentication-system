@@ -1,8 +1,8 @@
-name: Workflow
+name: Workflows
 
 on:
   push:
-    branches: [ workflow ]
+    branches: [ workflows ]
 
   pull_request:
     branches: [ main ]
