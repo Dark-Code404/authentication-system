@@ -29,7 +29,7 @@ jobs:
         run: |
           poetry run pytest
 
-          poetry run pyflakes
+          poetry run flake8
 
       
 
