@@ -52,10 +52,7 @@ def test_user_login_code(client, create_user):
 def test_user_register(client, create_user):
     res = client.post(
         reverse("register"),
-        {
-          "username": "yunish2", "password1": "aaa123aaa",
-          "password2": "aaa123aaa"
-          },
+        {"username": "yunish2", "password1": "aaa123aaa", "password2": "aaa123aaa"},
     )
     assert "A user with that username already exists" in str(res.content)
 
@@ -77,8 +74,7 @@ def test_user_login_response(client, create_user):
 )
 def test_parameter_login(client, create_user, username, password, result):
 
-    res = client.post(reverse("login"),
-                      {"username": username, "password": password})
+    res = client.post(reverse("login"), {"username": username, "password": password})
     assert res.status_code == result
 
 
