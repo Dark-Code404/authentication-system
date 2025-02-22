@@ -1,5 +1,6 @@
 
 
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import UserRegisterForm, UserLoginForm, TodoForm, Update_TodoForm
 from django.contrib import messages
@@ -9,14 +10,14 @@ from .models import CusUser, Todo
 
 
 @login_required()
-def home(request):
+def home(request: HttpRequest) -> HttpResponse:
     todos = Todo.objects.all()
     context = {"todos": todos}
 
     return render(request, "home.html", context)
 
 
-def register(request):
+def register(request: HttpRequest) -> HttpRequest:
 
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
@@ -37,7 +38,7 @@ def register(request):
     return render(request, "auth/register.html", {"form": form})
 
 
-def user_login(request):
+def user_login(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -67,7 +68,7 @@ def user_login(request):
     return render(request, "auth/login.html", {"form": form})
 
 
-def create_todo(request):
+def create_todo(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
 
         form = TodoForm(request.POST)
@@ -82,7 +83,7 @@ def create_todo(request):
     return render(request, "Todo/create_todo.html", {"form": form})
 
 
-def update_todo(request, pk):
+def update_todo(request: HttpRequest, pk: int = None) -> HttpResponse:
     task = get_object_or_404(Todo, id=pk)
     if request.method == "POST":
         form = Update_TodoForm(request.POST, instance=task)
@@ -101,7 +102,7 @@ def update_todo(request, pk):
     return render(request, "Todo/update_todo.html", {"form": form})
 
 
-def delete_todo(request, pk):
+def delete_todo(request: HttpRequest, pk: int = None) -> HttpResponse:
 
     task = get_object_or_404(Todo, id=pk)
 

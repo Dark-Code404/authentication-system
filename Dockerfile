@@ -15,12 +15,8 @@ RUN pip install poetry==2.1.1
 COPY pyproject.toml poetry.lock* requirements.txt* ./
 
 
-RUN if [ -f "pyproject.toml" ]; then \
-        poetry install --no-root; \
-    elif [ -f "requirements.txt" ]; then \
-        pip install --no-cache-dir -r requirements.txt; \
-    fi
- 
+RUN poetry install --no-root; 
+    
 
  
 COPY . .
@@ -28,5 +24,6 @@ COPY . .
  
 EXPOSE 8000
 
- 
-CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["sh", "build.sh"]
+
+
