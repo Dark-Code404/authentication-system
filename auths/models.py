@@ -3,13 +3,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 Choices = {
-    "role1": "Admin user",
-    "role2": "Regular user",
+    'USER_ROLE_ADMIN': "Admin user",
+
+    'USER_ROLE_REGULAR': "Regular user"
 }
 
 
 class CusUser(AbstractUser):
-    role = models.CharField(max_length=100, choices=Choices, default="role1")
+    role = models.CharField(max_length=100, choices=Choices, default="USER_ROLE_ADMIN")
 
 
 class Todo(models.Model):

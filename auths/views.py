@@ -1,5 +1,3 @@
-
-
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import UserRegisterForm, UserLoginForm, TodoForm, Update_TodoForm
@@ -49,7 +47,7 @@ def user_login(request: HttpRequest) -> HttpResponse:
 
             if user is None:
                 messages.info(request, "user doesnot exist")
-            elif user.role != "role1":
+            elif user.role != "USER_ROLE_ADMIN":
                 messages.info(request, f"{username} is not a Admin user")
 
             else:

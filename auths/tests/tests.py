@@ -15,13 +15,13 @@ def create_user(db):
         email="luiyunish1@gmai.com",
         username="yunish1",
         password="aaa123aaa",
-        role="role1",
+        role="USER_ROLE_ADMIN",
     )
     user2 = CusUser.objects.create_user(
         email="luiyunish2@gmai.com",
         username="yunish2",
         password="aaa123aaa",
-        role="role2",
+        role="USER_ROLE_REGULAR",
     )
     return user1, user2
 
@@ -30,8 +30,8 @@ def create_user(db):
 def test_user_role(create_user):
     user1, user2 = create_user
 
-    assert user1.role == "role1"
-    assert user2.role == "role2"
+    assert user1.role == "USER_ROLE_ADMIN"
+    assert user2.role == "USER_ROLE_REGULAR"
 
 
 @pytest.mark.django_db
@@ -83,8 +83,8 @@ def test_parameter_login(client, create_user, username, password, result):
 @pytest.mark.parametrize(
     "username,password1,password2,role,result,msg",
     [
-        ("yunish3", "aaa123aaa", "aaa123aaa", "role1", 302, None),
-        ("yunish4", "aaa123aaa", "aaa123aaa", "role1", 302, None),
+        ("yunish3", "aaa123aaa", "aaa123aaa", "USER_ROLE_ADMIN", 302, None),
+        ("yunish4", "aaa123aaa", "aaa123aaa", "USER_ROLE_ADMIN", 302, None),
         (
             "yunish1",
             "aaa123aaa",
