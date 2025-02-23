@@ -10,6 +10,7 @@ Choices = {
 
 
 class CusUser(AbstractUser):
+    """Custom user model with an additional 'role' field (Admin or Regular)."""
     role = models.CharField(max_length=100, choices=Choices, default="USER_ROLE_ADMIN")
 
 
