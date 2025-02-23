@@ -38,19 +38,6 @@ class TodoForm(forms.ModelForm):
         model = Todo
         fields = ["name", "description", "complete_date"]
 
-    def save(self, commit=True, user=None):
-        """
-        Save the Todo item, associating it with a user if provided.
-        """
-        instance = super().save(commit=False)
-        if user is not None:
-            instance.user = user
-
-            if commit:
-                instance.save()
-
-            return instance
-
 
 class Update_TodoForm(forms.ModelForm):
     """
@@ -60,20 +47,3 @@ class Update_TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ["name", "description", "complete_date", "is_complete"]
-
-    def save(self, commit=True, user=None):
-        """
-        Save the updated Todo item, associating it with a user if provided,
-        and updating the completion status if specified.
-        """
-        instance = super().save(commit=False)
-        if user is not None:
-            instance.user = user
-
-            if self.cleaned_data.get("is_complete"):
-                instance.is_complete = True
-
-            if commit:
-                instance.save()
-
-            return instance

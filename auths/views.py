@@ -76,7 +76,10 @@ def create_todo(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = TodoForm(request.POST)
         if form.is_valid():
-            form.save(user=request.user)
+            user = form.save(commit=False)
+            user.user = request.user
+            user.save()
+
             return redirect("home")
     else:
         form = TodoForm()
@@ -93,7 +96,10 @@ def update_todo(request: HttpRequest, pk: int = None) -> HttpResponse:
         form = Update_TodoForm(request.POST, instance=task)
         if request.user == task.user:
             if form.is_valid():
-                form.save(user=request.user)
+                is_complete = form.cleaned_data.get('is_complete')
+                user_todo = form.save(commit=False)
+                user_todo.is_complete = is_complete
+                user_todo.save()
                 return redirect("home")
         else:
             messages.error(request, "You are not authorized user")
