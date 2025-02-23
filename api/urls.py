@@ -14,16 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
- 
- 
-from django.urls import path 
+
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+from django.conf import settings
+from django.conf.urls.static import static
 
-urlpatterns = [ 
-    path('all_todo/',views.all_todo_data,name='all_todo_datas'),
-    
-    path('all_todo/<int:pk>/',views.all_todo_data,name='all_todo_datas'),
 
-     
-  
-]
+routers = DefaultRouter()
+
+routers.register("all_todos", views.TodoModelViewSet, basename="all_todos")
+
+
+urlpatterns = [
+    path("", include(routers.urls))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
