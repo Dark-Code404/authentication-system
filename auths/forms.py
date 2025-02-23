@@ -37,6 +37,10 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ["name", "description", "complete_date"]
+        widgets = {
+            'complete_date': forms.DateInput(attrs={'type': 'date'})
+
+        }
 
 
 class Update_TodoForm(forms.ModelForm):
@@ -47,3 +51,8 @@ class Update_TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ["name", "description", "complete_date", "is_complete"]
+
+        widgets = {
+            'complete_date': forms.DateInput(attrs={'id': 'datepicker', 'type': 'date'})
+
+        }
