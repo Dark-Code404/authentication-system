@@ -1,0 +1,36 @@
+name: Workflows
+
+on:
+  push:
+    branches: [ workflows ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with: 
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root
+      
+      - name: Run tests
+        run: poetry run pytest
+          
+      - name: Run linting flake tests
+        run: poetry run flake8
+
+      
+
+
