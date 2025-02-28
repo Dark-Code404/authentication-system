@@ -4,11 +4,10 @@ from django.core.management.utils import get_random_secret_key
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = DEBUG = os.environ.get("DEBUG", "False")
+DEBUG = os.environ.get("DEBUG", "False")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DEPLOY_SECRET_KEY", default=get_random_secret_key)
-
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
@@ -27,15 +26,11 @@ DATABASES = {
     }
 }
 
-
 STATIC_URL = "static/"
-
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 STATICFILES_DIR = [BASE_DIR / "static/"]
 
 MEDIA_URL = "/media/"
-
 MEDIA_ROOT = BASE_DIR / "uploads"
 
 STORAGES = {

@@ -22,14 +22,10 @@ DATABASES = {
 
 
 STATIC_URL = "static/"
-
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 STATICFILES_DIR = [BASE_DIR / "static/"]
 
-
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 STORAGES = {
@@ -37,6 +33,5 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
 
 LOGIN_URL = "login"

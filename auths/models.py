@@ -3,9 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 Choices = {
-    'USER_ROLE_ADMIN': "Admin user",
-
-    'USER_ROLE_REGULAR': "Regular user"
+    ('USER_ROLE_ADMIN', "Admin user"),
+    ('USER_ROLE_REGULAR', "Regular user"),
 }
 
 

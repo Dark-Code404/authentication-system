@@ -20,4 +20,5 @@ class TodoSerializer(serializers.ModelSerializer):
             'date_posted',
             'updated_at',
             'complete_date',
-            'is_complete']
+            'is_complete',
+        ]

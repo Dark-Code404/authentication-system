@@ -30,7 +30,3 @@ jobs:
           
       - name: Run linting flake tests
         run: poetry run flake8
-
-      
-
-

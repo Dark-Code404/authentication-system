@@ -23,9 +23,7 @@ from django.conf.urls.static import static
 
 
 routers = DefaultRouter()
-
 routers.register("all_todos", views.TodoModelViewSet, basename="all_todos")
-
 
 urlpatterns = [
     path("", include(routers.urls))
