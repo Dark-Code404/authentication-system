@@ -20,7 +20,6 @@ DATABASES = {
     }
 }
 
-
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIR = [BASE_DIR / "static/"]
