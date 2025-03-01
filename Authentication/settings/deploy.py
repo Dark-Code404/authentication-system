@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("DEPLOY_SECRET_KEY", default=get_random_secret_key)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
-AUTH_USER_MODEL = "auths.CusUser"
+AUTH_USER_MODEL = "auths.CustomUser"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

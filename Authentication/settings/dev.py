@@ -1,14 +1,16 @@
+import os
 from .base import *
+from django.core.management.utils import get_random_secret_key
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-SECRET_KEY = 'django-insecure-akbtxz(i#3k6=2f@notw50cr92g#xp81*zg%-g41j!7#3401j@'
+SECRET_KEY = os.environ.get("SECRET_KEY", default=get_random_secret_key)
 
 ALLOWED_HOSTS = ["*"]
 
-AUTH_USER_MODEL = "auths.CusUser"
+AUTH_USER_MODEL = "auths.CustomUser"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CusUser, Todo
+from .models import CustomUser, Todo
 
 
 class UserRegisterForm(UserCreationForm):
@@ -9,7 +9,7 @@ class UserRegisterForm(UserCreationForm):
     It inherits from Django's UserCreationForm and uses the CusUser model.
     """
     class Meta:
-        model = CusUser
+        model = CustomUser
         fields = ["username", "email", "password1", "password2", "role"]
 
 

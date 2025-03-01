@@ -1,5 +1,5 @@
 import pytest
-from auths.models import CusUser
+from auths.models import CustomUser
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
@@ -11,10 +11,10 @@ def create_user(db):
     """
     Fixture to create two users with different roles for testing purposes.
     """
-    user1 = CusUser.objects.create_user(
+    user1 = CustomUser.objects.create_user(
         email="luiyunish1@gmai.com", username="yunish1", password="aaa123aaa", role="USER_ROLE_ADMIN"
     )
-    user2 = CusUser.objects.create_user(
+    user2 = CustomUser.objects.create_user(
         email="luiyunish2@gmai.com", username="yunish2", password="aaa123aaa", role="USER_ROLE_REGULAR"
     )
     return user1, user2

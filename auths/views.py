@@ -4,7 +4,7 @@ from .forms import UserRegisterForm, UserLoginForm, TodoForm, Update_TodoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .models import CusUser, Todo
+from .models import CustomUser, Todo
 
 
 @login_required()
@@ -27,7 +27,7 @@ def register(request: HttpRequest) -> HttpRequest:
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get("username")
-            if CusUser.objects.filter(username=username).exists():
+            if CustomUser.objects.filter(username=username).exists():
                 messages.info(request, "user already exist")
                 return render(request, "auth/register.html", {"form": form})
 
@@ -50,7 +50,7 @@ def user_login(request: HttpRequest) -> HttpResponse:
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
 
-            user = CusUser.objects.filter(username=username).first()
+            user = CustomUser.objects.filter(username=username).first()
 
             if user is None:
                 messages.info(request, "user doesnot exist")

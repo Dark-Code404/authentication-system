@@ -8,15 +8,13 @@ Choices = {
 }
 
 
-class CusUser(AbstractUser):
+class CustomUser(AbstractUser):
     """Custom user model with an additional 'role' field (Admin or Regular)."""
     role = models.CharField(max_length=100, choices=Choices, default="USER_ROLE_ADMIN")
 
 
 class Todo(models.Model):
-    user = models.ForeignKey(
-        CusUser, related_name="user_post", on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(CustomUser, related_name="user_post", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
