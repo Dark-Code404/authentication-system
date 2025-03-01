@@ -1,24 +1,22 @@
 FROM python:3.12-slim
 
-RUN mkdir /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=false \
+    POETRY_NO_INTERACTION=1
 
 WORKDIR /app
 
-ENV PYTHONDONTWRITEBYTECODE=1
-
-
-ENV PYTHONUNBUFFERED=1 
-
 RUN pip install --upgrade pip 
 
-COPY  requirements.txt /app/
+RUN pip install poetry==2.1.1
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml poetry.lock* ./
 
-
-COPY . /app/
+RUN poetry install --no-root; 
+ 
+COPY . .
  
 EXPOSE 8000
- 
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["sh", "build.sh"]
